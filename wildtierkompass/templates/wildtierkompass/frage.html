@@ -1,0 +1,32 @@
+{% extends "wildtierkompass/base.html" %}
+{% comment %}
+============================================================
+Datei: wildtierkompass/templates/wildtierkompass/frage.html
+Zweck: UC2, zeigt eine Frage und ihre Antworten als Knöpfe.
+Daten: bekommt "frage" von der View frage() in views.py.
+Hinweis: extends steht ganz oben, weil es der erste Tag sein muss.
+============================================================
+{% endcomment %}
+
+{% block inhalt %}
+{# {{ }} gibt einen Wert aus, hier den Fragetext aus der Datenbank #}
+<h2>{{ frage.text }}</h2>
+
+{% comment %}
+frage.antworten.all holt alle Antworten, die zu dieser Frage gehören.
+Wie geht das? Im Model Antwort hat das Feld "frage" den
+related_name="antworten". Dadurch kennt jede Frage ihre Antworten.
+Wichtig: Im Template OHNE Klammern, also .all statt .all()
+{% endcomment %}
+{% for antwort in frage.antworten.all %}
+
+    {# Jeder Knopf führt zur View antwort(), die über den weiteren Weg entscheidet #}
+    <a class="button" href="{% url 'wildtierkompass:antwort' antwort.pk %}">
+        {{ antwort.text }}
+    </a>
+
+{% endfor %}
+
+{# Fluchtweg: Der Finder kann jederzeit von vorn beginnen #}
+<p><a href="{% url 'wildtierkompass:start' %}">Zurück zum Start</a></p>
+{% endblock %}

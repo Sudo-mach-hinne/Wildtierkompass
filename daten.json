@@ -1,0 +1,178 @@
+[
+{
+  "model": "wildtierkompass.kategorie",
+  "pk": 1,
+  "fields": {
+    "name": "Säugetiere"
+  }
+},
+{
+  "model": "wildtierkompass.kategorie",
+  "pk": 2,
+  "fields": {
+    "name": "Vögel"
+  }
+},
+{
+  "model": "wildtierkompass.tierart",
+  "pk": 1,
+  "fields": {
+    "kategorie": 1,
+    "name": "Igel",
+    "beschreibung": "Der Igel ist ein nachtaktiver Insektenfresser und in Deutschland besonders geschützt. Erwachsene Tiere werden etwa 24 bis 28 cm lang und tragen rund 8000 Stacheln. Bei Gefahr rollt sich ein gesunder Igel zu einer Stachelkugel ein. Ab Mitte November halten die meisten Igel Winterschlaf.",
+    "tipps": "Niemals Milch geben, Igel vertragen keine Laktose.\r\nKein Obst, keine Nüsse, keine Küchenabfälle, kein Hundefutter, keine Mehlwürmer.\r\nErwachsene Igel dürfen Katzenfutter ohne Soße oder ungewürztes Rührei bekommen, dazu lauwarmes Wasser in einer flachen Schale.\r\nJungtiere nicht selbst füttern.\r\nZum Wärmen nur eine handwarme Wärmflasche, in ein Handtuch gewickelt. Kein Heizkissen, keine Rotlichtlampe.\r\nGesunde Igel dürfen nicht aus der Natur genommen werden, sie sind geschützt.",
+    "quelle": "Pro Igel e.V.: https://www.pro-igel.de\r\nBei Unsicherheit per E-Mail: igelhilfe@pro-igel.de\r\nNABU: https://www.nabu.de",
+    "start_frage": 7
+  }
+},
+{
+  "model": "wildtierkompass.frage",
+  "pk": 3,
+  "fields": {
+    "tierart": 1,
+    "text": "Ist der Igel sehr klein (etwa handtellergroß, unter ca. 200 g) und allein unterwegs?"
+  }
+},
+{
+  "model": "wildtierkompass.frage",
+  "pk": 4,
+  "fields": {
+    "tierart": 1,
+    "text": "Ist der Igel tagsüber unterwegs?"
+  }
+},
+{
+  "model": "wildtierkompass.frage",
+  "pk": 5,
+  "fields": {
+    "tierart": 1,
+    "text": "Ist gerade Winter mit Dauerfrost oder Schnee?"
+  }
+},
+{
+  "model": "wildtierkompass.frage",
+  "pk": 6,
+  "fields": {
+    "tierart": 1,
+    "text": "Wirkt der Igel krank? Zum Beispiel: rollt sich nicht ein, torkelt, liegt auf der Seite, hat einen Knick hinter dem Kopf, Schlitzaugen oder röchelt."
+  }
+},
+{
+  "model": "wildtierkompass.frage",
+  "pk": 7,
+  "fields": {
+    "tierart": 1,
+    "text": "Ist der Igel sichtbar verletzt, oder sitzen Fliegen, Fliegeneier oder Maden auf ihm?"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 5,
+  "fields": {
+    "frage": 3,
+    "text": "Ja",
+    "naechste_frage": null,
+    "empfehlung": "Igel unter etwa 200 g werden noch von der Mutter gesäugt. Schau aus der Entfernung nach Mutter, Geschwistern und Nest, und störe das Nest nicht. Füttere das Jungtier nicht selbst. Ist es allein, kalt oder schwach, ruf sofort eine Igelstation an.",
+    "dringlichkeit": "beobachten"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 6,
+  "fields": {
+    "frage": 3,
+    "text": "Nein",
+    "naechste_frage": null,
+    "empfehlung": "Der Igel ist vermutlich gesund. Bitte lass ihn in Ruhe, im Herbst kann er draußen noch gut zunehmen. So hilfst du trotzdem: Laub und Reisighaufen im Garten liegen lassen, eine flache Wasserschale aufstellen und den Mähroboter nicht nachts laufen lassen.",
+    "dringlichkeit": "in_ruhe"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 7,
+  "fields": {
+    "frage": 4,
+    "text": "Ja",
+    "naechste_frage": null,
+    "empfehlung": "Igel sind nachtaktiv, tagsüber unterwegs zu sein ist ein Warnzeichen. Setz den Igel mit Handschuhen in einen ausgepolsterten Karton mit Luftlöchern und lass dich bei einer Igelstation oder einem igelkundigen Tierarzt beraten.",
+    "dringlichkeit": "abklaeren"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 8,
+  "fields": {
+    "frage": 4,
+    "text": "Nein",
+    "naechste_frage": 3,
+    "empfehlung": "",
+    "dringlichkeit": ""
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 9,
+  "fields": {
+    "frage": 5,
+    "text": "Ja",
+    "naechste_frage": null,
+    "empfehlung": "Ein Igel, der bei Frost oder Schnee unterwegs ist, braucht immer Hilfe. Setz ihn mit Handschuhen in einen ausgepolsterten Karton mit Luftlöchern. Ist sein Bauch kälter als deine Hand, leg eine handwarme Wärmflasche in einem Handtuch dazu. Stell den Karton an einen ruhigen, zugfreien Ort und ruf eine Igelstation an.",
+    "dringlichkeit": "dringend"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 10,
+  "fields": {
+    "frage": 5,
+    "text": "Nein",
+    "naechste_frage": 4,
+    "empfehlung": "",
+    "dringlichkeit": ""
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 11,
+  "fields": {
+    "frage": 6,
+    "text": "Ja",
+    "naechste_frage": null,
+    "empfehlung": "Setz den Igel mit Handschuhen in einen ausgepolsterten Karton mit Luftlöchern. Ist sein Bauch kälter als deine Hand, leg eine handwarme Wärmflasche in einem Handtuch dazu. Stell den Karton an einen ruhigen, zugfreien Ort. Notiere Funddatum, Uhrzeit, Fundort und wenn möglich das Gewicht. Ruf dann eine Igelstation oder einen igelkundigen Tierarzt an.",
+    "dringlichkeit": "dringend"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 12,
+  "fields": {
+    "frage": 6,
+    "text": "Nein",
+    "naechste_frage": 5,
+    "empfehlung": "",
+    "dringlichkeit": ""
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 13,
+  "fields": {
+    "frage": 7,
+    "text": "Ja",
+    "naechste_frage": null,
+    "empfehlung": "Setz den Igel mit Handschuhen in einen ausgepolsterten Karton mit Luftlöchern. Entferne Fliegeneier und Maden vorsichtig, so schnell es geht. Wichtig: Solange Eier oder Maden auf dem Tier sind, NICHT wärmen. Ruf sofort einen igelkundigen Tierarzt oder eine Igelstation an.",
+    "dringlichkeit": "notfall"
+  }
+},
+{
+  "model": "wildtierkompass.antwort",
+  "pk": 14,
+  "fields": {
+    "frage": 7,
+    "text": "Nein",
+    "naechste_frage": 6,
+    "empfehlung": "",
+    "dringlichkeit": ""
+  }
+}
+]

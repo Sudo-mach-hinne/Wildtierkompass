@@ -1,0 +1,60 @@
+{% extends "wildtierkompass/base.html" %}
+{% comment %}
+============================================================
+Datei: wildtierkompass/templates/wildtierkompass/start.html
+Zweck: UC1, die Startseite mit allen Tierarten nach Kategorien.
+Daten: bekommt "kategorien" und "ohne_kategorie" von der
+       View start() in views.py.
+WICHTIG: {% extends %} muss IMMER der allererste Tag sein.
+WICHTIG: Django Tags wie {% for %} und Kommentare mit {# #}
+         müssen immer in EINER Zeile stehen.
+============================================================
+{% endcomment %}
+
+{% block inhalt %}
+<p>Welches Tier hast du gefunden?</p>
+
+{# Äußere Schleife: einmal pro Kategorie, z. B. "Säugetiere", "Vögel" #}
+{% for kategorie in kategorien %}
+
+    <h2>{{ kategorie.name }}</h2>
+
+    {% comment %}
+    Innere Schleife: alle Tierarten DIESER Kategorie.
+    kategorie.tierarten.all funktioniert dank related_name="tierarten"
+    im Model Tierart. Sortiert sind sie durch ordering = ["name"].
+    Das nennt man eine "verschachtelte Schleife".
+    {% endcomment %}
+    {% for tierart in kategorie.tierarten.all %}
+
+        {% comment %}
+        include fügt den Inhalt von _tierart_button.html genau hier ein.
+        Die Variable "tierart" aus dieser Schleife ist dort automatisch
+        verfügbar, weil include den aktuellen Context weitergibt.
+        {% endcomment %}
+        {% include "wildtierkompass/_tierart_button.html" %}
+
+    {# empty greift, wenn die Kategorie noch keine Tierarten hat #}
+    {% empty %}
+        <p>In dieser Kategorie gibt es noch keine Tierarten.</p>
+    {% endfor %}
+
+{% endfor %}
+
+{% comment %}
+Tierarten ohne Kategorie bekommen einen eigenen Bereich.
+{% if ohne_kategorie %} ist nur wahr, wenn die Liste nicht leer ist.
+So erscheint die Überschrift nur, wenn es solche Tierarten gibt.
+{% endcomment %}
+{% if ohne_kategorie %}
+    <h2>Weitere Tiere</h2>
+    {% for tierart in ohne_kategorie %}
+        {% include "wildtierkompass/_tierart_button.html" %}
+    {% endfor %}
+{% endif %}
+
+{# Hinweis, falls die Datenbank noch komplett leer ist #}
+{% if not kategorien and not ohne_kategorie %}
+    <p>Es sind noch keine Tierarten angelegt.</p>
+{% endif %}
+{% endblock %}

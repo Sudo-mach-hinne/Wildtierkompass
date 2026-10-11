@@ -1,0 +1,29 @@
+{% comment %}
+============================================================
+Datei: wildtierkompass/templates/wildtierkompass/_tierart_button.html
+Zweck: Der Knopf für EINE Tierart, als wiederverwendbarer Baustein.
+Warum eine eigene Datei? Die Startseite braucht diesen Knopf an
+zwei Stellen: bei den Kategorien und bei "Weitere Tiere".
+Statt den Code doppelt zu schreiben, steht er nur einmal hier
+(Prinzip "Don't Repeat Yourself").
+Wie wird sie benutzt? Mit {% include %} in start.html.
+Daten: Die Variable "tierart" kommt automatisch aus der
+       umgebenden Schleife in start.html.
+Der Unterstrich am Anfang des Dateinamens ist eine Konvention:
+Er zeigt, dass dies keine ganze Seite ist, sondern nur ein Teil.
+Diese Datei erbt nichts, deshalb darf der Kommentar oben stehen.
+============================================================
+{% endcomment %}
+
+{% comment %}
+Nur verlinken, wenn es schon einen Entscheidungsbaum gibt.
+Eine Tierart ohne Startfrage würde sonst ins Leere führen.
+{% endcomment %}
+{% if tierart.start_frage %}
+    {# {% url %} baut die Adresse aus urls.py, z. B. /frage/2/ #}
+    <a class="button" href="{% url 'wildtierkompass:frage' tierart.start_frage.pk %}">
+        {{ tierart.name }}
+    </a>
+{% else %}
+    <p>{{ tierart.name }} (noch keine Fragen hinterlegt)</p>
+{% endif %}

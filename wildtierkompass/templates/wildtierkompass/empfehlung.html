@@ -1,0 +1,77 @@
+{% extends "wildtierkompass/base.html" %}
+{% comment %}
+============================================================
+Datei: wildtierkompass/templates/wildtierkompass/empfehlung.html
+Zweck: UC3, das Ende des Entscheidungsbaums mit der Empfehlung.
+Daten: bekommt "antwort" von der View antwort() in views.py.
+       Diese Seite erscheint nur, wenn die Antwort KEINE Folgefrage hat.
+Hinweis: extends steht ganz oben, weil es der erste Tag sein muss.
+============================================================
+{% endcomment %}
+
+{% block inhalt %}
+
+{% comment %}
+Die Ampel. Nur anzeigen, wenn eine Dringlichkeit eingetragen ist.
+class="ampel ampel-{{ antwort.dringlichkeit }}":
+  Django setzt den gespeicherten Wert ein, z. B. "notfall".
+  Ergebnis: class="ampel ampel-notfall", passend zum CSS in base.html.
+get_dringlichkeit_display:
+  Diese Methode erzeugt Django automatisch für jedes Feld mit choices.
+  Sie liefert den Anzeigenamen ("Notfall") statt des DB Werts ("notfall").
+  Der Name folgt immer dem Muster get_<feldname>_display.
+{% endcomment %}
+{% if antwort.dringlichkeit %}
+    <div class="ampel ampel-{{ antwort.dringlichkeit }}">
+        {{ antwort.get_dringlichkeit_display }}
+    </div>
+{% endif %}
+
+<h2>Das kannst du jetzt tun</h2>
+
+{% comment %}
+|linebreaks ist ein "Filter". Filter verändern einen Wert vor der Ausgabe.
+Warum hier? Im Admin getippte Zeilenumbrüche würden in HTML sonst
+ignoriert und alles stünde in einer Zeile. linebreaks macht daraus
+saubere Absätze (<p>) und Zeilenumbrüche (<br>).
+{% endcomment %}
+<div class="empfehlung">
+    {{ antwort.empfehlung|linebreaks }}
+</div>
+
+{% comment %}
+{% with %} legt eine Abkürzung an, die bis {% endwith %} gilt.
+Warum? Sonst müssten wir dreimal antwort.frage.tierart schreiben.
+Wie kommen wir zur Tierart? Über die Fremdschlüssel:
+  Antwort -> gehört zu Frage -> gehört zu Tierart
+{% endcomment %}
+{% with tierart=antwort.frage.tierart %}
+
+    {# Tipps nur anzeigen, wenn welche eingetragen sind #}
+    {% if tierart.tipps %}
+        <h3>Wichtige Hinweise</h3>
+        <div class="tipps">
+            {{ tierart.tipps|linebreaks }}
+        </div>
+    {% endif %}
+
+    {% comment %}
+    Zwei Filter hintereinander, sie werden von links nach rechts ausgeführt:
+      urlize:     macht aus Webadressen und E-Mail-Adressen klickbare Links
+      linebreaks: macht aus Zeilenumbrüchen Absätze
+    Die Reihenfolge ist wichtig: Erst Links erzeugen, dann Absätze bilden.
+    {% endcomment %}
+    {% if tierart.quelle %}
+        <div class="quelle">
+            <strong>Quellen und Anlaufstellen:</strong>
+            {{ tierart.quelle|urlize|linebreaks }}
+        </div>
+    {% endif %}
+
+{% endwith %}
+
+{# Rechtlich und fachlich wichtig: Die App gibt Orientierung, keine Diagnose #}
+<p class="hinweis">Dieser Leitfaden ersetzt keine tierärztliche Beratung. Im Zweifel bitte immer eine Wildtierstation oder einen Tierarzt anrufen.</p>
+
+<p><a href="{% url 'wildtierkompass:start' %}">Zurück zum Start</a></p>
+{% endblock %}

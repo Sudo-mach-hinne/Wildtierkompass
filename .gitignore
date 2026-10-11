@@ -1,0 +1,11 @@
+# Virtuelle Umgebung: wird mit requirements.txt neu erzeugt,
+# gehört nicht ins Repository (groß und rechnerabhängig)
+.venv/
+
+# Kompilierte Python Dateien, entstehen automatisch
+__pycache__/
+*.pyc
+
+# Lokale Datenbank: enthält z. B. deinen Superuser mit Passwort.
+# Die Inhalte liegen stattdessen in daten.json.
+db.sqlite3

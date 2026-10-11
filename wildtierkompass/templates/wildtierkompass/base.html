@@ -1,0 +1,128 @@
+{% comment %}
+============================================================
+Datei: wildtierkompass/templates/wildtierkompass/base.html
+Zweck: Das Grundgerüst, das ALLE anderen Seiten erben.
+       Warum? Kopf, Design und Überschrift stehen nur einmal hier.
+       Willst du später die Farbe ändern, änderst du sie an EINER
+       Stelle statt in jeder Datei (Prinzip "Don't Repeat Yourself").
+Wie? Die anderen Templates schreiben {% extends %} und füllen
+     den {% block inhalt %} mit ihrem eigenen Inhalt.
+Hinweis: Diese Datei erbt selbst nichts, deshalb darf der
+         Kommentar hier ganz oben stehen.
+WICHTIG: Django Tags wie {% block %} und Kommentare mit {# #}
+         müssen immer in EINER Zeile stehen.
+============================================================
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    {# UTF-8 sorgt dafür, dass Umlaute wie ü und ß korrekt angezeigt werden #}
+    <meta charset="UTF-8">
+
+    {# Wichtig fürs Handy: Die Seite passt sich der Bildschirmbreite an #}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {# Text im Browser Tab #}
+    <title>Wildtierkompass</title>
+
+    <style>
+        /* Grundlayout der Seite:
+           max-width begrenzt die Breite, damit der Text auf großen
+           Bildschirmen nicht über die ganze Breite läuft.
+           margin: 0 auto zentriert den Inhalt horizontal.
+           padding schafft Abstand zum Bildschirmrand (wichtig am Handy). */
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+            background: #f4f7f2;   /* helles Naturgrün als Hintergrund */
+            color: #2c3e2d;        /* dunkles Grün statt hartem Schwarz */
+        }
+
+        h1 {
+            color: #3d6b3f;
+        }
+
+        /* Klasse "button": Wir lassen normale Links wie große Knöpfe
+           aussehen. Warum? Im Notfall, oft draußen am Handy, sind große
+           Flächen viel leichter zu treffen als kleine Textlinks. */
+        .button {
+            display: block;        /* volle Breite statt nur Textbreite */
+            padding: 14px;         /* große Klickfläche */
+            margin: 10px 0;        /* Abstand zwischen den Knöpfen */
+            background: #3d6b3f;
+            color: white;
+            text-decoration: none; /* entfernt den Unterstrich von Links */
+            border-radius: 8px;    /* abgerundete Ecken */
+            text-align: center;
+            font-size: 1.1em;      /* etwas größere Schrift */
+        }
+
+        /* :hover greift, wenn die Maus über dem Knopf ist.
+           Das dunklere Grün zeigt: Das ist klickbar. */
+        .button:hover {
+            background: #2c4f2e;
+        }
+
+        /* Box für die Handlungsempfehlung, hebt sie optisch hervor */
+        .empfehlung {
+            background: white;
+            padding: 16px;
+            border-left: 5px solid #3d6b3f;  /* grüner Balken links */
+            border-radius: 8px;
+        }
+
+        /* Die Ampel.
+           .ampel enthält alles, was ALLE Stufen gemeinsam haben.
+           Die einzelnen Farben kommen über eine zweite Klasse dazu,
+           z. B. class="ampel ampel-notfall". */
+        .ampel {
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        /* Die Klassennamen enden genau mit den Werten aus
+           Antwort.Dringlichkeit in models.py. Das Template baut den
+           Namen zusammen: "ampel-" + "notfall" = "ampel-notfall".
+           Deshalb müssen die Schreibweisen exakt übereinstimmen. */
+        .ampel-notfall    { background: #b71c1c; }  /* dunkelrot */
+        .ampel-dringend   { background: #d84315; }  /* rotorange */
+        .ampel-abklaeren  { background: #ef6c00; }  /* orange */
+        .ampel-beobachten { background: #f9a825; color: #2c3e2d; }  /* gelb, dunkle Schrift für Lesbarkeit */
+        .ampel-in_ruhe    { background: #2e7d32; }  /* grün */
+
+        /* Box für Tipps und Tabus der Tierart.
+           Gelblicher Hintergrund signalisiert "Achtung, wichtig". */
+        .tipps {
+            background: #fff8e1;
+            padding: 16px;
+            border-left: 5px solid #f9a825;
+            border-radius: 8px;
+        }
+
+        /* Quellen und Hinweis bewusst klein und unauffällig,
+           damit sie die eigentliche Hilfe nicht überdecken. */
+        .quelle,
+        .hinweis {
+            font-size: 0.85em;
+            color: #5a6b5b;
+        }
+    </style>
+</head>
+<body>
+    <h1>🦔 Wildtierkompass</h1>
+
+    {% comment %}
+    Ein "block" ist ein Platzhalter mit Namen.
+    Die erbenden Templates definieren einen Block mit DEMSELBEN Namen
+    ("inhalt"), und Django setzt deren Inhalt genau hier ein.
+    {% endcomment %}
+    {% block inhalt %}{% endblock %}
+</body>
+</html>
